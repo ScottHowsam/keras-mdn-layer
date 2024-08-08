@@ -12,14 +12,23 @@ classifiers = ['Topic :: Scientific/Engineering :: Artificial Intelligence']
 
 [tool.poetry.dependencies]
 python = "3.11.*"
-numpy = "^1.26.4"
-tensorflow-probability = "0.23.0"
-tensorflow-macos = {markers="sys_platform == 'darwin' and platform_machine == 'arm64'", version = "2.15.0"}
+numpy = ">=1.22,<1.27"
+tensorflow-probability = [
+  {platform = "win32", version = "~=0.21.0"},
+  {version = ">=0.21.0,<=0.23.0"}
+]
+# FIXME: This weirdly causes an error, fix
+# tensorflow-macos = {markers="sys_platform == 'darwin' and platform_machine == 'arm64'", version = ">=2.13.0,<2.16.0"}
 tensorflow = [
-  {markers="sys_platform == 'darwin' and platform_machine == 'x86_64'", version = "2.15.0"},
-  {markers="sys_platform == 'linux' and platform_machine == 'x86_64'", version = "2.15.0"},
-  {platform = "win32", version = "~2.15.0"},
-  ]
+  {markers="sys_platform == 'darwin' and platform_machine == 'x86_64'", version = ">=2.13.0,<2.16.0"},
+  {markers="sys_platform == 'linux' and platform_machine == 'x86_64'", version = ">=2.13.0,<2.16.0"},
+  {platform = "win32", version = "~=2.13.0"},
+  {platform = "win32", version = ">=2.13.0,<2.16.0"}
+]
+tensorflow-io-gcs-filesystem = [
+    {markers="sys_platform != 'win32'", version = ">= 0.23.1"},
+    {markers="sys_platform == 'win32'", version = ">= 0.23.1,< 0.32.0"}
+]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
